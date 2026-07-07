@@ -24,7 +24,11 @@ type AppConfig struct {
 }
 
 func LoadConfig() (*AppConfig, error) {
-	data, err := os.ReadFile("config/database.yaml")
+	return LoadConfigFromPath("config/database.yaml")
+}
+
+func LoadConfigFromPath(path string) (*AppConfig, error) {
+	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}

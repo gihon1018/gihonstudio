@@ -13,7 +13,7 @@ func main() {
 		log.Fatalf("加载配置失败: %v", err)
 	}
 
-	db, err := database.InitPostgres(&appCfg.Database)
+	db, err := database.InitPostgreSQL(&appCfg.Database)
 	if err != nil {
 		log.Fatalf("数据库连接失败: %v", err)
 	}
