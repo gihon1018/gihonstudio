@@ -112,3 +112,19 @@ func TestUserAuthRepository_CreateInBatches(t *testing.T) {
 		t.Logf("创建成功，UID：%d", userAuth.Uid)
 	}
 }
+
+func TestUserAuthRepository_FirstByUid(t *testing.T) {
+	userAuth, err := userAuthRepo.FirstByUid(globalCtx, 19)
+	if err != nil {
+		t.Fatalf("查询失败：%v", err)
+	}
+	t.Logf("查询成功，userAuth：%v", userAuth)
+}
+
+func TestUserAuthRepository_FirstByUsername(t *testing.T) {
+	userAuth, err := userAuthRepo.FirstByUsername(globalCtx, "test_user_006")
+	if err != nil {
+		t.Fatalf("查询失败：%v", err)
+	}
+	t.Logf("查询成功，userAuth：%v", userAuth)
+}

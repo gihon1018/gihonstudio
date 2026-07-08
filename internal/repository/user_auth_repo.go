@@ -24,10 +24,18 @@ func (r *UserAuthRepository) CreateWithRows(ctx context.Context, userAuth *UserA
 	return result.RowsAffected, gorm.G[UserAuth](r.db, result).Create(ctx, userAuth)
 }
 
-func (r *UserAuthRepository) CreateOmit(ctx context.Context, userAuth *UserAuth, selectStr []string) error {
-	return gorm.G[UserAuth](r.db).Omit(selectStr...).Create(ctx, userAuth)
+func (r *UserAuthRepository) CreateOmit(ctx context.Context, userAuth *UserAuth, omitStrs []string) error {
+	return gorm.G[UserAuth](r.db).Omit(omitStrs...).Create(ctx, userAuth)
 }
 
 func (r *UserAuthRepository) CreateInBatches(ctx context.Context, userAuths *[]UserAuth, batchSize int) error {
 	return gorm.G[UserAuth](r.db).CreateInBatches(ctx, userAuths, batchSize)
+}
+
+func (r *UserAuthRepository) FirstByUid(ctx context.Context, uid uint64) (UserAuth, error) {
+	return gorm.G[UserAuth](r.db).Where("uid = ?", uid).First(ctx)
+}
+
+func (r *UserAuthRepository) FirstByUsername(ctx context.Context, username string) (UserAuth, error) {
+	return gorm.G[UserAuth](r.db).Where("username = ?", username).First(ctx)
 }
