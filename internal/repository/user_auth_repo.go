@@ -39,3 +39,15 @@ func (r *UserAuthRepository) FirstByUid(ctx context.Context, uid uint64) (UserAu
 func (r *UserAuthRepository) FirstByUsername(ctx context.Context, username string) (UserAuth, error) {
 	return gorm.G[UserAuth](r.db).Where("username = ?", username).First(ctx)
 }
+
+func (r *UserAuthRepository) UpdateByUid(ctx context.Context, uid uint64, column string, value string) (int, error) {
+	return gorm.G[UserAuth](r.db).Where("uid = ?", uid).Update(ctx, column, value)
+}
+
+func (r *UserAuthRepository) UpdateByUsername(ctx context.Context, username string, column string, value string) (int, error) {
+	return gorm.G[UserAuth](r.db).Where("username = ?", username).Update(ctx, column, value)
+}
+
+func (r *UserAuthRepository) Updates(ctx context.Context, userAuth UserAuth) (int, error) {
+	return gorm.G[UserAuth](r.db).Where("uid = ?", userAuth.Uid).Updates(ctx, userAuth)
+}

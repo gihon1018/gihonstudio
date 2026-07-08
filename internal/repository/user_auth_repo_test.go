@@ -128,3 +128,33 @@ func TestUserAuthRepository_FirstByUsername(t *testing.T) {
 	}
 	t.Logf("查询成功，userAuth：%v", userAuth)
 }
+
+func TestUserAuthRepository_UpdateByUid(t *testing.T) {
+	rows, err := userAuthRepo.UpdateByUid(globalCtx, 21, "username", "test_user_003")
+	if err != nil {
+		t.Fatalf("更新失败：%v", err)
+	}
+	t.Logf("更新成功，影响行数：%d", rows)
+}
+
+func TestUserAuthRepository_UpdateByUsername(t *testing.T) {
+	rows, err := userAuthRepo.UpdateByUsername(globalCtx, "test_user_006", "uid", "24")
+	if err != nil {
+		t.Fatalf("更新失败：%v", err)
+	}
+	t.Logf("更新成功，影响行数：%d", rows)
+}
+
+func TestUserAuthRepository_Updates(t *testing.T) {
+	userAuth := UserAuth{
+		Uid:          20,
+		Username:     "asnduasd",
+		PasswordHash: "1235fdwsvcv",
+	}
+
+	rows, err := userAuthRepo.Updates(globalCtx, userAuth)
+	if err != nil {
+		t.Fatalf("创建失败：%v", err)
+	}
+	t.Logf("更新成功，影响行数：%d", rows)
+}
